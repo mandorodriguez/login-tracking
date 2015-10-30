@@ -36,7 +36,7 @@ else:
 
 
 
-logged_in_users = list(set([u.name for u in psutil.get_users()]))
+logged_in_users = list(set([u.name for u in psutil.users()]))
 
 #
 # caution, will add a '.db' to the file name
@@ -50,12 +50,13 @@ for user_id in logged_in_users:
         
         if shv.has_key(user_id):
 
-            shv[user_id]['prev'] = shv[user_id]['last']
+            #shv[user_id]['prev'] = shv[user_id]['last']
             
             shv[user_id]['last'] = curr_time
 
         else:
-            shv[user_id] = {'last' : curr_time, 'prev' : curr_time}
+            #shv[user_id] = {'last' : curr_time, 'prev' : curr_time}
+            shv[user_id] = {'last' : curr_time}
 
 shv.close()
 

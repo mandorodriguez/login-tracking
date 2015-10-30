@@ -5,12 +5,12 @@ import pdb
 import argparse
 import datetime
 import shelve
-import psutil
+import time
+
 """
 
-Just loops through the previous database generated on login hits and prints their
-most recent login and the one before that.
-
+Just loops through the previous database generated on login hits and prints the
+time since last login.
 
 """
 
@@ -33,7 +33,9 @@ shv = shelve.open(dbfile, protocol=1)
 print ""
 for key,value in shv.iteritems():
 
-    print "%s: last login %s, previous %s" % (key, datetime.datetime.fromtimestamp(value['last']), datetime.datetime.fromtimestamp(value['prev']))
+    #datetime.datetime.fromtimestamp(value['last'])
+    
+    print "%s:\tTime since last login: \t%s" % (key, datetime.timedelta(seconds=int(time.time())-int(value['last'])) )
 
 
 print "\n"
