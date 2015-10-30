@@ -5,6 +5,7 @@ import pdb
 import argparse
 import time
 import shelve
+import psutil
 """
 
 This script is just used to log the user that executes it into
@@ -35,30 +36,27 @@ else:
 
 
 
-if not user_id in exclude_list:
+logged_in_users = list(set([u.name for u in psutil.get_users()]))
 
-    #
-    # caution, will add a '.db' to the file name
-    #
-    shv = shelve.open(dbfile, protocol=1, writeback=True)
+#
+# caution, will add a '.db' to the file name
+#
+shv = shelve.open(dbfile, protocol=1, writeback=True)
 
+# loop through all users and log the last time they were logged in
+for user_id in logged_in_users:
     
-    if shv.has_key(user_id):
+    if not user_id in exclude_list:
+        
+        if shv.has_key(user_id):
 
-        login_list = shv[user_id]['logins']
-    
-        login_list.append(curr_time)
+            shv[user_id]['prev'] = shv[user_id]['last']
+            
+            shv[user_id]['last'] = curr_time
 
-        shv[user_id]['logins'] = login_list
+        else:
+            shv[user_id] = {'last' : curr_time, 'prev' : curr_time}
 
-        shv[user_id]['last'] = curr_time
-
-    else:
-        pdb.set_trace()
-        shv[user_id] = {'logins': [curr_time] , 'last' : curr_time}
-
-
-
-    shv.close()
+shv.close()
 
 
