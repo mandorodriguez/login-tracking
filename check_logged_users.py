@@ -30,10 +30,13 @@ dbfile = args.database
 
 shv = shelve.open(dbfile, protocol=1)
 
+print ""
 for key,value in shv.iteritems():
 
     print "%s: last login %s, previous %s" % (key, datetime.datetime.fromtimestamp(value['last']), datetime.datetime.fromtimestamp(value['prev']))
 
+
+print "\n"
 
 shv.close()
 
