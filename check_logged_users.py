@@ -28,7 +28,7 @@ dbfile = args.database
 
 
 
-shv = shelve.open(dbfile, protocol=1, writeback=True)
+shv = shelve.open(dbfile, protocol=1)
 
 for key,value in shv.iteritems():
 
