@@ -5,6 +5,7 @@ import pdb
 import argparse
 import time
 import shelve
+import dbm
 """
 
 This script is just used to log the user that executes it into
@@ -39,8 +40,8 @@ if not user_id in exclude_list:
 
     #
     # caution, will add a '.db' to the file name
-    # 
-    shv = shelve.open(dbfile, writeback=True)
+    #
+    shv = shelve.open(dbfile, protocol=1, writeback=True)
 
     
     if shv.has_key(user_id):
