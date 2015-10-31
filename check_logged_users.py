@@ -30,12 +30,12 @@ dbfile = args.database
 
 shv = shelve.open(dbfile, protocol=1)
 
-print ""
+print "\nUsername\tTime since last login"
 for key,value in shv.iteritems():
 
     #datetime.datetime.fromtimestamp(value['last'])
     
-    print "%s\tTime since last login\t%s" % (key, datetime.timedelta(seconds=int(time.time())-int(value['last'])) )
+    print "%s\t\t%s" % (key, datetime.timedelta(seconds=int(time.time())-int(value['last'])) )
 
 
 print "\n"
