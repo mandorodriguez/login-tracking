@@ -35,7 +35,7 @@ for key,value in shv.iteritems():
 
     #datetime.datetime.fromtimestamp(value['last'])
     
-    print "%s:\tTime since last login: \t%s" % (key, datetime.timedelta(seconds=int(time.time())-int(value['last'])) )
+    print "%s\tTime since last login\t%s" % (key, datetime.timedelta(seconds=int(time.time())-int(value['last'])) )
 
 
 print "\n"
