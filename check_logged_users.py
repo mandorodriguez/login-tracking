@@ -30,13 +30,21 @@ dbfile = args.database
 
 shv = shelve.open(dbfile, protocol=1)
 
-print "\nUsername\tTime since last login"
+user_list = []
+
 for key,value in shv.iteritems():
 
+    user_list.append( (key, int(time.time())-int(value['last'])) )
     #datetime.datetime.fromtimestamp(value['last'])
     
-    print "%s\t\t%s" % (key, datetime.timedelta(seconds=int(time.time())-int(value['last'])) )
 
+
+# now print them after sorting
+
+print "\nUsername\tTime since last login:"
+
+for u in sorted(user_list, key=lambda tup: tup[1]):
+    print "%s\t\t%s" % (u[0], datetime.timedelta(seconds=u[1]))
 
 print "\n"
 
