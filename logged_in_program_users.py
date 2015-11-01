@@ -34,6 +34,7 @@ curr_time = time.time()
 
 dbfile = args.database
 program_string = args.program
+exclude_list = args.exclude
 
 if args.exclude is None:
     exclude_list = []
@@ -49,11 +50,11 @@ for l in grep_output.split('\n'):
         try:
             user_id = l.split()[0]
 
-            if not user_id in logged_in_users:
+            if not user_id in logged_in_users and not user_id in exclude_list and not user_id.isdigit():
                 logged_in_users.append(user_id)
         except:
             pass
-
+pdb.set_trace()
 #
 # caution, will add a '.db' to the file name
 #
