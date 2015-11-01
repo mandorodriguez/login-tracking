@@ -54,7 +54,7 @@ for l in grep_output.split('\n'):
                 logged_in_users.append(user_id)
         except:
             pass
-pdb.set_trace()
+
 #
 # caution, will add a '.db' to the file name
 #
