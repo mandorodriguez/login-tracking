@@ -23,13 +23,12 @@ parser.add_argument("-d", "--database", type=str,
                     help="Path to an sqlite database file", required=True)
 parser.add_argument("-p", "--program", type=str,
                     help="Program string to match the ps output to", default="")
-parser.add_argument("-x", "--exclude", type=str, 
-                    nargs='*', help="List of users to exclude")
+
 
 args = parser.parse_args()
 
 
-grep_output = subprocess.check_output(["smbstatus", "-d"])
+smbuser_output = subprocess.check_output(["smbstatus", "-d"])
 
 
 curr_time = time.time()
@@ -46,18 +45,24 @@ else:
 
 logged_in_users = []
 
-for l in grep_output.split('\n'):
+for l in smbuser_output.split('\n'):
 
-    if program_string in l:
 
-        try:
-            user_id = l.split()[0]
+    try:
+        
+        parts = l.split()
 
-            if not user_id in logged_in_users and not user_id in exclude_list and not user_id.isdigit():
-                logged_in_users.append(user_id)
-        except:
-            pass
+        if not len(parts) == 6:
+            except raise Exception
 
+        uid_num = int(parts[0])
+
+        logged_in_users.append(parts[1])
+        
+    except:
+        pass
+
+pdb.set_trace()
 #
 # caution, will add a '.db' to the file name
 #
