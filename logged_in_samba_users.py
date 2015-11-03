@@ -62,19 +62,15 @@ shv = shelve.open(dbfile, protocol=1, writeback=True)
 
 # loop through all users and log the last time they were logged in
 for user_id in list(set(logged_in_users)):
-    
-    if not user_id in exclude_list:
-        
-        if shv.has_key(user_id):
-
-            #shv[user_id]['prev'] = shv[user_id]['last']
             
-            shv[user_id]['last'] = curr_time
+    if shv.has_key(user_id):
+            
+        shv[user_id]['last'] = curr_time
 
-        else:
-            #shv[user_id] = {'last' : curr_time, 'prev' : curr_time}
-            shv[user_id] = {'last' : curr_time}
-
+    else:
+        
+        shv[user_id] = {'last' : curr_time}
+            
 shv.close()
 
 
