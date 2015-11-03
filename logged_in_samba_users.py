@@ -21,8 +21,7 @@ command to get the logged in users.
 parser = argparse.ArgumentParser()
 parser.add_argument("-d", "--database", type=str,
                     help="Path to an sqlite database file", required=True)
-parser.add_argument("-p", "--program", type=str,
-                    help="Program string to match the ps output to", default="")
+
 
 
 args = parser.parse_args()
@@ -35,13 +34,7 @@ curr_time = time.time()
 
 
 dbfile = args.database
-program_string = args.program
-exclude_list = args.exclude
 
-if args.exclude is None:
-    exclude_list = []
-else:
-    exclude_list = args.exclude
 
 logged_in_users = []
 
@@ -62,14 +55,13 @@ for l in smbuser_output.split('\n'):
     except:
         pass
 
-pdb.set_trace()
 #
 # caution, will add a '.db' to the file name
 #
 shv = shelve.open(dbfile, protocol=1, writeback=True)
 
 # loop through all users and log the last time they were logged in
-for user_id in logged_in_users:
+for user_id in list(set(logged_in_users)):
     
     if not user_id in exclude_list:
         
