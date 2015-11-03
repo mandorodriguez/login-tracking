@@ -46,7 +46,7 @@ for l in smbuser_output.split('\n'):
         parts = l.split()
 
         if not len(parts) == 6:
-            except raise Exception
+            raise Exception
 
         uid_num = int(parts[0])
 
